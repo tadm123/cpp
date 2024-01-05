@@ -1,0 +1,27 @@
+// Write a program that asks the user to input an integer, and tells the user whether the number is even or odd. 
+// Write a constexpr function called isEven() that returns true if an integer passed to it is even, and false otherwise. 
+// Use the remainder operator to test whether the integer parameter is even. Make sure isEven() works with both positive and negative numbers.
+
+#include <iostream>
+
+constexpr bool isEven(int x)   //creating a constant boolean value function at compile-time
+{
+    if ((x % 2) == 0)  //if no remainder, it's even 
+        return true;
+    else
+        return false;
+}
+
+int main()
+{
+    std::cout << "Enter  an integer: ";
+    int x{};
+    std::cin >> x;
+
+    if (isEven(x) == 1)
+        std::cout << x << " is Even";
+    else
+        std::cout << x << " is Odd";
+
+    return 0;
+}
