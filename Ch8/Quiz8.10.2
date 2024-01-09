@@ -1,0 +1,29 @@
+/*
+Write a function named sumTo() that takes an integer parameter named value, and returns the sum of all the numbers from 1 to value.
+
+For example, sumTo(5) should return 15, which is 1 + 2 + 3 + 4 + 5.
+*/
+
+#include <iostream>
+
+int sumTo(int num)
+{
+    int sum{0};
+
+    for (int i{1}; i <= num; ++i)
+        sum += i;
+
+    return sum;
+}
+
+int main()
+{
+    std::cout << "Enter a number: ";
+    int x{};
+    
+    std::cin >> x;
+    std::cout << sumTo(x);
+
+    return 0;
+
+}
