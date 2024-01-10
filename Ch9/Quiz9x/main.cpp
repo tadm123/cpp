@@ -1,3 +1,9 @@
+/*
+Update your previous solution to handle invalid guesses (e.g. ‘x’), out of bounds guesses (e.g. 0 or 101), or valid guesses that have extraneous characters (e.g. 43x). 
+Also handle the user entering extra characters when the game asks them whether they want to play again.
+Hint: Write a separate function to handle the user inputting their guess (along with the associated error handling).
+*/
+
 #include <iostream>
 #include <random.h>
 
