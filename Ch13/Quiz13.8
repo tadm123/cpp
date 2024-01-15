@@ -1,0 +1,46 @@
+/*
+You are running a website, and you are trying to calculate your advertising revenue. 
+Write a program that allows you to enter 3 pieces of data:
+
+How many ads were watched.
+What percentage of users clicked on an ad.
+The average earnings per clicked ad.
+Store those 3 values in a struct. Pass that struct to another function that prints each of the values. 
+The print function should also print how much you made for that day (multiply the 3 fields together).
+*/
+
+#include <iostream>
+
+struct Ads
+{
+    int num {0};                // How many ads were watched.
+    double percentage {0};      // What percentage of users clicked on an ad.
+    double rev {0};             // The average earnings per clicked ad.
+};
+
+void myAdFunction(const Ads& ad)
+{
+    std::cout << "Num of times your ad was watched: " << ad.num << "\n";
+    std::cout << "Percentage users click on ad: " << ad.percentage << "\n";
+    std::cout << "Average earning per clicked ad: " << ad.rev << "\n";
+    std::cout << "Rev per day: " << ad.num * ad.percentage * ad.rev << "\n";
+}
+
+int main()
+{
+    Ads ad{};
+
+    std::cout << "Enter the num of times your ad was watched: ";
+    std::cin >> ad.num;
+
+    std::cout << "Enter the percentage users click on ad: ";
+    std::cin >> ad.percentage;
+
+    std::cout << "Enter the average earning per clicked ad: ";
+    std::cin >> ad.rev;
+    std::cout << '\n';
+
+    myAdFunction(ad);
+
+    return 0;
+}
