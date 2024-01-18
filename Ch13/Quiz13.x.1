@@ -1,0 +1,57 @@
+/* In designing a game, we decide we want to have monsters, because everyone likes fighting monsters. 
+Declare a struct that represents your monster. The monster should have a type that can be one of the 
+following: an ogre, a dragon, an orc, a giant spider, or a slime. Use an enum class for this.
+
+Each individual monster should also have a name (use a std::string or std::string_view), as well as an 
+amount of health that represents how much damage they can take before they die. Write a function named 
+printMonster() that prints out all of the struct’s members. Instantiate an ogre and a slime, initialize 
+them using an initializer list, and pass them to printMonster().*/
+
+#include <iostream>
+#include <string_view>
+
+enum class MonsterType      //defining my own custom type named "MonsterType" it will have 5 different monsters
+{
+    ogre,
+    dragon,
+    orc,
+    giantSpider,
+    slime,
+};
+
+struct Monster            //The struct "Monster" will have MonsterType, string_view and int as its members
+{
+    MonsterType type {};    //type "MonsterType" with name "type"
+    std::string_view name {};   // string type
+    int healthMax {};       //int type
+};
+
+std::string_view getMonsterName(MonsterType M)
+{
+    switch(M)
+    {
+        case MonsterType::ogre: return "Ogre";
+        case MonsterType::dragon: return "Dragon";
+        case MonsterType::orc: return "Orc";
+        case MonsterType::giantSpider: return "GiantSpider";
+        case MonsterType::slime: return "Slime";
+    }
+    return "Unknown";
+}
+
+void printMonster(const Monster& my_monster)
+{
+    std::cout << "This " << getMonsterName(my_monster.type) << " is " << my_monster.name << " with " <<
+        my_monster.healthMax << " health " << "\n";
+}
+
+int main()
+{
+    Monster my_monster1{MonsterType::ogre, "Torg", 145};
+    Monster my_monster2{MonsterType::slime, "Bloop", 23};
+
+    printMonster(my_monster1);
+    printMonster(my_monster2);
+
+    return 0;
+}
