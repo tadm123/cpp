@@ -1,0 +1,39 @@
+// Add a new member function to IntPair named isEqual that returns a Boolean indicating whether one IntPair is equal to another.
+
+#include <iostream>
+
+struct IntPair  	//using class instead of struct
+{
+    int num1 {};
+    int num2 {};
+
+    void print() // defines a member function named print (you could define it separately but classes allows you to do this, which is better)
+    {
+        std::cout << "Pair(" << num1 << ", " << num2 << ")\n";
+    }
+    
+    bool isEqual(IntPair p)
+    {
+        if ( (num1 == p.num1) && (num2 == p.num2) )
+            return true;
+
+        return false;
+    }
+};
+
+int main()
+{
+    IntPair p1 {1, 2};
+    IntPair p2 {3, 4};
+
+    std::cout << "p1: ";
+    p1.print();
+
+    std::cout << "p2: ";
+    p2.print();
+
+    std::cout << "p1 and p1 " << (p1.isEqual(p1) ? "are equal\n" : "are not equal\n");
+    std::cout << "p1 and p2 " << (p1.isEqual(p2) ? "are equal\n" : "are not equal\n");
+
+    return 0;
+}
