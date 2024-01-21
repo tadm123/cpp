@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string_view>
+
+class Ball
+{
+private:
+    std::string_view m_color {};
+    double m_radius {};
+
+public:
+    
+    //initializes default value
+    Ball ()
+    {
+    }
+
+    //initializes color only (string)
+    Ball (std::string_view c)
+        : m_color { c }
+    {
+    }
+
+    //initializes radius only (double)
+    Ball (double r)
+            : m_radius{ r }
+    {
+    }
+
+    //initializes both radius and color
+    Ball(std::string_view c, double r)
+            : m_color { c }, m_radius { r } // here's our member initialization list, initializing member variables to what you put in the function call
+    {
+    }
+};
+
+
+int main()
+{
+    Ball def{};     //default initialization
+    Ball blue{ "blue" };    //only a string (color)
+    Ball twenty{ 20.0 };    //only value (radius)
+    Ball blueTwenty{ "blue", 20.0 };    //both color and radius
+
+    return 0;
+}
