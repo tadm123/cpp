@@ -1,0 +1,42 @@
+/* Reduce the number of constructors in the above program by using default arguments and delegating constructors. */
+
+#include <iostream>
+#include <string>
+#include <string_view>
+
+class Ball
+{
+private:
+    std::string m_color{ "black" };
+    double m_radius{ 10.0 };
+
+public:
+    // With aggregate initialization, you must initialize first to last. There is currently no syntax for skipping an argument and using 
+    // the default value for that parameter.
+    // We did Ball(radius) by itself. The reason why need to do this is because radius is the second variable in the function call
+    // so when you only declare it alone, it will match it with string which is the first. In any other it's the second option
+    // Ball twenty { 20.0 } matches Ball(double) because it is an exact match. It does not match Ball(std::string_view, double)
+    // at all because there is no implicit conversion from double to std::string_view.
+    Ball(double radius)
+            : Ball{ "black", radius }
+    {
+    }
+
+    // Handles Ball(color, radius), Ball(color), and Ball()
+    Ball(std::string_view color="black", double radius=10.0) //default values for color and radius
+            : m_color{ color }
+            , m_radius{ radius }
+    {
+        std::cout << "Ball(" << m_color << ", " << m_radius << ")\n";
+    }
+};
+
+int main()
+{
+    Ball def{};
+    Ball blue{ "blue" };
+    Ball twenty{ 20.0 };
+    Ball blueTwenty{ "blue", 20.0 };
+
+    return 0;
+}
