@@ -1,0 +1,17 @@
+/* Using a std::vector, write a program that asks the user to enter 3 integral values. Print the sum and product of those values. */
+
+#include <vector>
+#include <iostream>
+
+int main()
+{
+    std::vector<int> val(3);
+
+    std::cout << "Enter 3 integer values: ";
+    std::cin >> val[0] >> val[1] >> val[2];
+
+    std::cout << "The sum is: " << val[0] + val[1] + val[2] << '\n';
+    std::cout << "The product is: " << val[0] * val[1] * val[2] << '\n';
+    
+    return 0;
+}
