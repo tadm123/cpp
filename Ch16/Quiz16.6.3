@@ -1,0 +1,100 @@
+/*
+Given the solution for quiz 2, do the following:
+- Ask the user for a value between 1 and 9. If the user does not enter a value between 1 and 9, 
+repeatedly ask for an integer value until they do. If the user enters a number followed by extraneous input, 
+ignore the extraneous input.
+- Print the array.
+- Write a function template to search the array for the value that the user entered. 
+If the value is in the array, return the index of that element. If the value is not in the array, return an appropriate value.
+If the value was found, print the value and index. If the value was not found, print the value and that it was not found.
+*/
+
+
+#include <iostream>
+#include <vector>
+#include <limits>
+
+
+void ignoreLine()  //removes any extraneous input
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+int getNumber()
+{
+    while (true)
+    {
+        std::cout << "Enter a number between 1 and 9: ";
+        int x{};
+        std::cin >> x ;
+
+
+        if (!std::cin)   // checks for failed extraction
+        {
+            if (std::cin.eof())   //if the stream was closed
+                exit(0);          //exit the program
+
+            //handling failure if user types 'a' instead of a number
+            std::cin.clear();   //put it back in normal mode
+            ignoreLine();       //remove the bad input
+        }
+
+        else                    //if it's a number
+        {
+            if (x >= 1 && x <= 9)       //check that it's between 1 and 9
+            {
+                ignoreLine();
+                return x;
+            }
+        }
+    }
+}
+
+template <typename T>
+void printArray(const std::vector<T>& v)
+{
+    std::size_t length{v.size()};
+
+    for (std::size_t index{ 0 }; index < length; ++index)
+        std::cout << v[index] << " ";
+
+    std::cout << '\n';
+}
+
+
+void printIndex(const std::vector<int>& arr, const int number) //arr{4,6,7,3,8,2,1,9}, number = 6
+{
+
+    std::size_t length{arr.size()};
+    bool match{false};
+    int n{};
+
+    for (std::size_t index{ 0 }; index < length; ++index) //index 0,1,2,3,4,5,6,7
+        if ( arr[index] == number)
+        {
+            match = true;
+            n = index;
+        }
+
+   if (match)
+       std::cout << "The number " << number << " has index " << n << '\n';
+   else
+       std::cout << "The number " << number << " could not be found."<< '\n';
+
+}
+
+int main()
+{
+
+    std::vector arr{ 4, 6, 7, 3, 8, 2, 1, 9 };
+
+    int myNumber{ getNumber() }; // if you entered a number, say 6, it returns 6 
+
+    //prints the array
+    printArray(arr);
+
+    //prints the number and the index in which it is in the array (pass the array and number parameters)
+    printIndex(arr, myNumber);
+    
+    return 0;
+}
