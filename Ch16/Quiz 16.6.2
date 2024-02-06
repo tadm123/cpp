@@ -1,0 +1,25 @@
+/* Update your code for the prior quiz solution so that the following program compiles and has the same output. using a function */
+
+#include <iostream>
+#include <vector>
+
+template <typename T>
+void printArray(const std::vector<T>& v)
+{
+    std::size_t length{v.size()};
+    int index{0};
+
+    for (std::size_t index{ 0 }; index < length; ++index)
+        std::cout << v[index] << " ";
+
+    std::cout << '\n';
+}
+
+int main()
+{
+    std::vector arr{ 4, 6, 7, 3, 8, 2, 1, 9 };
+
+    printArray(arr); // use function template to print array
+
+    return 0;
+}
