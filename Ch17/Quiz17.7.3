@@ -1,0 +1,64 @@
+/*
+A “perfect square” is a natural number whose square root is an integer. 
+We can make perfect squares by multiplying a natural number (including zero) by itself. 
+The first 4 perfect squares are: 0, 1, 4, 9.
+
+Use a global constexpr C-style array to hold the perfect squares between 0 and 9 (inclusive). 
+Repeatedly ask the user to enter a single digit integer, or -1 to quit. 
+Print whether the digit the user entered is a perfect square.
+*/
+
+
+#include <iostream>
+#include <iterator>
+
+namespace myNumber
+{
+    constexpr int numbers [] {0,1,2,3,4,5,6,7,8,9};
+}
+
+bool findSquare(const int integer)
+{
+    for (const auto& num : myNumber::numbers)
+    {
+        if (integer == (num*num) )  //if it's a match
+            return true;
+    }
+    return false;
+}
+
+int main()
+{
+    while (true)
+    {
+        //Ask user to enter a digit
+        std::cout << "Enter a single digit integer, or -1 to quit: ";
+        int integer{0};
+       
+        //User inputs their digit into "integer"
+        std::cin >> integer;
+
+        //handle error
+        if (!std::cin)
+           std::cin.clear(); // reset any error flags
+
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+        //if user types -1 exit
+        if (integer == -1)
+        {
+            std::cout << "Bye";
+            break;
+        }
+
+        //proceed with program logic
+        if (findSquare(integer))
+            std::cout << integer << " is a perfect square.";
+        else
+            std::cout << integer << " is not a perfect square.";
+
+        std::cout << '\n';
+    }
+
+    return 0;
+}
