@@ -1,0 +1,89 @@
+/* 
+
+Manually show how selection sort works on the following array: { 30, 60, 20, 50, 40, 10 }. Show the array after each swap that takes place. (Using Selection Sort):
+
+{ 30, 60, 20, 50, 40, 10 } index 0 
+{ 10, 60, 20, 50, 40, 30 } 
+
+{ 10, 60, 20, 50, 40, 30 }  index 1 
+{ 10, 20, 60, 50, 40, 30 } 
+
+{ 10, 20, 60, 50, 40, 30 }  index 2 
+{ 10, 20, 30, 50, 40, 60 } 
+
+{ 10, 20, 30, 50, 40, 60 }  index 3 
+{ 10, 20, 30, 40, 50, 60 } 
+
+{ 10, 20, 30, 40, 50, 60 }  index 4 
+{ 10, 20, 30, 40, 50, 60 } 
+
+{ 10, 20, 30, 40, 50, 60 }  index 4 
+{ 10, 20, 30, 40, 50, 60 } 
+
+*/
+
+#include <iostream>
+#include <iterator>
+#include <utility>
+
+int main()
+{
+    int array[]{ 30, 60, 20, 50, 40 , 10};
+    constexpr int length{ static_cast<int>(std::size(array)) };
+
+    std::cout << "Sorting array\n";
+
+    // Step through each element of the array
+    // (except the last one, which will already be sorted by the time we get there)
+    for (int startIndex{ 0 }; startIndex < length - 1; ++startIndex)
+    {
+        // smallestIndex is the index of the smallest element we’ve encountered this iteration
+        // Start by assuming the smallest element is the first element of this iteration
+        int smallestIndex{ startIndex };
+
+        // Then look for a smaller element in the rest of the array
+        for (int currentIndex{ startIndex + 1 }; currentIndex < length; ++currentIndex)
+        {
+            // If we've found an element that is smaller than our previously found smallest
+            if (array[currentIndex] < array[smallestIndex])
+                // then keep track of it
+                smallestIndex = currentIndex;
+        }
+
+        // smallestIndex is now the index of the smallest element in the remaining array
+        // swap our start element with our smallest element (this sorts it into the correct place)
+        std::swap(array[startIndex], array[smallestIndex]);
+
+        std::cout << "Iteration " << startIndex + 1 << ": ";
+
+        for (int index{ 0 }; index < length; ++index)
+        {
+            std::cout << array[index] << ' ';
+        }
+
+        std::cout << "\tStarting at index: " << startIndex;
+        std::cout << '\n';
+    }
+
+
+    std::cout << '\n';
+    std::cout << "Final sorted array: ";
+    // Now that the whole array is sorted, print our sorted array as proof it works
+    for (int index{ 0 }; index < length; ++index)
+        std::cout << array[index] << ' ';
+
+    std::cout << '\n';
+
+    return 0;
+}
+
+/* Output:
+Sorting array
+Iteration 1: 10 60 20 50 40 30 	Starting at index: 0
+Iteration 2: 10 20 60 50 40 30 	Starting at index: 1
+Iteration 3: 10 20 30 50 40 60 	Starting at index: 2
+Iteration 4: 10 20 30 40 50 60 	Starting at index: 3
+Iteration 5: 10 20 30 40 50 60 	Starting at index: 4
+
+Final sorted array: 10 20 30 40 50 60 
+*/
