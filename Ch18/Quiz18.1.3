@@ -1,0 +1,67 @@
+/*
+
+This one is going to be difficult, so put your game face on.
+
+Another simple sort is called “bubble sort”. Bubble sort works by comparing adjacent pairs of elements, 
+and swapping them if the criteria is met, so that elements “bubble” to the end of the array. 
+Although there are quite a few ways to optimize bubble sort, in this quiz we’ll stick with the unoptimized 
+version here because it’s simplest.
+
+Unoptimized bubble sort performs the following steps to sort an array from smallest to largest:
+A) Compare array element 0 with array element 1. If element 0 is larger, swap it with element 1.
+B) Now do the same for elements 1 and 2, and every subsequent pair of elements until you hit the end of the array. 
+At this point, the last element in the array will be sorted.
+C) Repeat the first two steps again until the array is sorted.
+
+*/
+
+#include <iostream>
+#include <iterator>
+#include <utility>
+
+int main()
+{
+    int array[]{30, 60, 20, 50, 40, 10};
+    int length{static_cast<int>(std::size(array))};
+
+
+    int first{0};
+    int second{0};
+
+    std::cout << "Sorting array\n";
+
+    for (int outer{0}; outer < length - 1; outer++)
+    {
+        for (int inner{0}; inner < length - 1; ++inner)    // i <  ; i++        i goes up until i= 5
+        {
+            first = inner;
+            second = inner + 1 ;
+
+            if (array[inner] > array[second])
+                std::swap(array[first], array[second]);   //{60, 30, 20, 50, 40, 10};
+        }
+
+
+        // printing Iterations
+        std::cout << "Iteration " << outer + 1 << ": ";
+
+        for (int index{0}; index < length; ++index)
+            std::cout << array[index] << ' ';
+
+        std::cout << "\tStarting at index: " << outer;
+        std::cout << '\n';
+    }
+
+    --length;  //decreasing length each iteration, since last element was already sorted, so ignore it
+
+    std::cout << '\n';
+    std::cout << "Final sorted array: ";
+
+    // Print final sorted array
+    for (int index{0}; index < std::size(array); ++index)
+        std::cout << array[index] << ' ';
+
+    std::cout << '\n';
+
+    return 0;
+}
