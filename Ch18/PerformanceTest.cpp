@@ -1,4 +1,5 @@
-/* We'll compare performance of doing our own selection sorting algorithim, with simply using standard library std::sorting algorithim. */
+/* We'll compare performance of the following: Our own custom "selection sorting" algorithim
+against the sorthing algorithim (std::sorting) from the standard library. */
 
 #include <array>
 #include <chrono> // for std::chrono functions
