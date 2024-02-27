@@ -135,6 +135,6 @@ std::sort:
 Time taken: 7.1665e-05 seconds
 
 
-Our std::sort algoirthim is 4000x faster!
+The std::sort algoirthim is 4000x faster!
 */
 
