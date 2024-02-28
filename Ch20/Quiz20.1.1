@@ -1,0 +1,67 @@
+/* In this quiz, we’re going to write a version of our basic calculator using function pointers. */
+
+#include <functional>
+#include <iostream>
+
+double add(double x, double y)
+{
+    return x+y;
+}
+double subtract(double x, double y)
+{
+    return x-y;
+}
+double multiply(double x, double y)
+{
+    return x*y;
+}
+double divide(double x, double y)
+{
+    return x/y;
+}
+
+using ArithmeticFunction = std::function<double(double, double)>;
+ArithmeticFunction getArithmeticFunction(char c)   //returns a pointer to the function
+{
+    switch(c)
+    {
+        case '+': return &add;
+        case '-': return &subtract;
+        case '*': return &multiply;
+        case '/': return &divide;
+        default:
+            std::cout << "???" << '\n';
+            return nullptr;
+    }
+}
+
+int main()
+{
+    while(true)
+    {
+        char c{};
+        std::cout << "Enter the operator (+, -, *, /) or 'q' to quit: ";
+        std:: cin >> c;
+
+        if (c == 'q')
+            break;
+
+        std::cout << "Enter first number: ";
+        double x{};
+        std:: cin >> x;
+
+        std::cout << "Enter second number: ";
+        double y{};
+        std:: cin >> y;
+
+        if (c == '+' || c == '-' || c == '*' || c == '/')
+        {
+            ArithmeticFunction myFunction{ getArithmeticFunction(c) }; //returns a pointer to the function (function's address)
+            std::cout << "Result: " << myFunction(x,y) << '\n';
+        }
+
+        std::cout << '\n';
+    }
+
+    return 0;
+}
