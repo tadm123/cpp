@@ -1,0 +1,27 @@
+/* 
+A factorial of an integer N (written N!) is defined as the product (multiplication) of all the numbers between 1 and 
+N (0! = 1). Write a recursive function called factorial that returns the factorial of the input. 
+Test it with the first 7 factorials.
+*/
+
+
+#include <functional>
+#include <iostream>
+
+
+int factorial(int f)
+{
+    if (f <= 0)
+        return 0; // base case (termination condition) when user passed in an unexpected argument (0 or negative)
+    if (f == 1)
+        return 1; // normal base case (termination condition)
+
+    return factorial(f - 1) * f; // recursive function call
+}
+
+int main()
+{
+    std::cout << factorial(7) << '\n';
+
+    return 0;
+}
