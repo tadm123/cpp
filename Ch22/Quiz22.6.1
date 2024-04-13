@@ -1,0 +1,47 @@
+/*
+This is a program that was converted from normal pointers to smart pointers using std::unique_ptr (std::make_unique)
+*/
+
+#include <iostream>
+#include <memory>
+
+class Fraction
+{
+private:
+	int m_numerator{ 0 };
+	int m_denominator{ 1 };
+
+public:
+    Fraction(int numerator = 0, int denominator = 1) :
+		m_numerator{ numerator }, m_denominator{ denominator }
+	{
+	}
+
+	friend std::ostream& operator<<(std::ostream& out, const Fraction &f1)
+	{
+		out << f1.m_numerator << '/' << f1.m_denominator;
+		return out;
+	}
+};
+
+void printFraction(const Fraction* ptr)
+{
+	if (ptr)
+		std::cout << *ptr << '\n';
+	else
+		std::cout << "No fraction\n";
+}
+
+int main()
+{
+    // We'll use make_unique because it's simpler than unique_ptr and allows us to use automatic deduction!
+    auto smrt_ptr{ std::make_unique<Fraction>() };
+
+    // this is basically the same as:
+    //std::unique_ptr<Fraction> smrt_ptr{ new Fraction{3,5} };
+
+	printFraction(smrt_ptr.get() );      //getting
+
+
+	return 0;
+}
