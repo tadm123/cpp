@@ -1,0 +1,25 @@
+/*
+What’s wrong with the following code? Update the program to be best practices compliant.
+*/
+
+#include <iostream>
+#include <memory> // for std::shared_ptr
+
+class Resource
+{
+public:
+	Resource() { std::cout << "Resource acquired\n"; }
+	~Resource() { std::cout << "Resource destroyed\n"; }
+};
+
+int main()
+{
+  auto* res{ new Resource{} };
+  std::shared_ptr<Resource> ptr1{ res };
+
+  //std::shared_ptr<Resource> ptr2{ res };  // error: to use shared_ptr you gotta create a copy of the first shared_ptr pointer. So this is incorrect
+  //Correcting it:
+  std::shared_ptr<Resource> ptr2{ptr1};
+
+	return 0;
+}
