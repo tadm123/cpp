@@ -1,0 +1,234 @@
+/*
+Challenge time - Write a simple game where you fight monsters. 
+The goal of the game is to collect as much gold as you can before you die or get to level 20.
+
+Our program is going to consist of 3 classes: a Creature class, a Player class, and a Monster class. Player and Monster both inherit from Creature.
+For more information: https://www.learncpp.com/cpp-tutorial/chapter-24-summary-and-quiz/
+*/
+
+
+#include <iostream>
+#include <string>
+#include <string_view>
+#include "Random.h"
+
+
+class Creature
+{
+protected:
+    std::string m_name{};
+    char m_symbol{};
+    int m_health{};
+    int m_damage{};
+    int m_gold{};
+
+
+public:
+    Creature(std::string_view name, char symbol, int health, int damage, int gold)
+        : m_name{name}, m_symbol{symbol}, m_health{health}, m_damage{damage}, m_gold{gold}
+    {
+    }
+
+    // function: reduce health
+    void reduceHealth(int num)
+    {
+        m_health -= num;
+    }
+
+    //function: add gold
+    void addGold(int num)
+    {
+        m_gold += num;
+    }
+
+    //function: check if create is dead
+    bool isDead()
+    {
+        if (m_health <= 0)
+            return true;
+
+        return false;
+    }
+
+    //getter functions
+    std::string_view getName(){return m_name;}
+    char getSymbol(){return m_symbol;}
+    int getHealth(){return m_health;}
+    int getDamage(){return m_damage;}
+    int getGold(){return m_gold;}
+};
+
+class Player: public Creature
+{
+private:
+    int m_level{};
+
+public:
+    Player(std::string_view name)
+        :Creature{name, '@', 10, 1, 0}, m_level{1}
+    {
+    }
+
+    //function increases the player’s level and damage by 1
+    void levelUp()
+    {
+        m_level++;
+        m_damage++;         //since it's m_damage in Creature class is protected you can access it, if it was private you'll have to use a getter function
+    }
+
+    //function check if the player has won yet
+    bool hasWon()
+    {
+        if (m_level == 20)      // if players has reached level 20, return true
+        {
+            std::cout << "You won the game! You have " << m_gold << " of gold.\n";
+            return true;
+        }
+
+        return false;
+    }
+
+    //getter for level member variable
+    int getLevel() const { return m_level; }
+
+};
+
+
+class Monster: public Creature
+{
+public:
+    enum Type
+    {
+        dragon,     // 0
+        orc,        // 1
+        slime,      // 2
+        max_types   // 3
+    };
+
+private:
+     static inline Creature monsterData[] {             // here have an array (C-style) of Creature classes
+            Creature { "dragon", 'D', 2, 4, 100 },     
+            Creature { "orc", 'o', 4, 2, 25 },
+            Creature { "slime", 's', 1, 1, 10 }
+    };
+
+    static_assert(std::size(monsterData) == max_types);
+
+public:
+    Monster(Type type)              //Ex: you pass "orc" , which is an enum, remember enums gets converted to integer, here to 1
+        :Creature{ monsterData[type] }      //Crea ture{ monsterData[orc] } -> Creature{ monsterData[1] } which gets you element 1 of that C-style array. And element 1 selects the Creature with all these variables
+    {
+    }
+
+    static Monster getRandomMonster()
+    {
+        int rand_num{ Random::get(0, max_types - 1) };     //a random number between 0 and 2 (i.e 1)
+
+        Monster myMonsterType{static_cast<Type>(rand_num) };   //if rand_num = 1, Monster sample{
+
+        return myMonsterType;
+    }
+};
+
+
+void fightMonster(Player &p, Monster& m);    
+
+//Here the monster attacks the player
+void attackPlayer(Player &p, Monster &m)
+{
+    //here the monster "m" attacks the player and reduces the health on the player
+    std::cout << "The " << m.getName() << " hit you for " << m.getDamage() << " damage.\n";
+    p.reduceHealth( m.getDamage() );
+
+    if (p.isDead() )        //if player is dead game ends
+    {
+        std::cout << "You died at level " << p.getLevel() << " and with " << p.getGold() << " gold.\n";
+        std::cout << "Too bad you can’t take it with you!\n";
+        return;
+
+    }
+
+    else            //if you're not dead. Then ask whether you want to run or flight again.
+    {
+        std::cout << "You're health is now at: " << p.getHealth() << "hp.\n";
+        fightMonster(p, m);
+    }
+
+}
+
+
+//Here the player attacks the monster. If monster is dead returns
+void attackMonster(Player &p, Monster &m)
+{
+    //here you attack the monster (note: the playere starts with attack damage at 1
+    std::cout << "You hit the " << m.getName() << " for " << p.getDamage() << " damage.\n";
+    m.reduceHealth( p.getDamage() );
+
+    //check if monster has died or not, if it did
+    if ( m.isDead() )
+    {
+        std::cout << "You killed the " << m.getName() << ".\n";
+        p.levelUp();
+        std::cout << "You are now level " << p.getLevel() << ".\n";
+
+        std::cout << "You found " << m.getGold() << " gold.\n";
+        //steal gold from monster (transfer it into player)
+        p.addGold( m.getGold() );
+
+    }
+
+    else //if monster is not dead
+    {
+        attackPlayer(p,m);
+    }
+}
+
+
+//Choose either run or fight
+void fightMonster(Player &p, Monster& m)
+{
+
+    std::cout << "(R)un or (F)ight: ";
+
+    char runOrFight{};
+    std::cin >> runOrFight;
+
+    if (runOrFight == 'r')      // players has run
+    {
+        //Player has 50% chance of either sucessfully fleeing or failing to flee
+        int n{ Random::get(0, 1) };     
+        if (n)      //if n == 1
+            std::cout << "You successfully fled.\n";
+        
+        else        //if n == 0
+        {
+            std::cout << "You failed to flee.\n";     //you failed to flee, so the Monster attakcs you
+            attackPlayer(p,m);
+        }
+    }
+
+    if (runOrFight == 'f')
+        attackMonster(p,m); //if monster hasn't died, it'll attack you
+  
+};
+
+int main()
+{
+    std::cout << "Enter your name: ";
+    std::string name{};
+    std::getline(std::cin >> std::ws, name);
+
+    Player player{name};
+    std::cout << "Welcome " << player.getName() << "." << '\n';
+
+    //Game begins
+    while ( !player.isDead() && !player.hasWon() )      //keep running unter player is dead (player.isDead() returns false)
+    {
+        Monster m{ Monster::getRandomMonster() };
+        std::cout << "You have encountered a " << m.getName() << " (" << m.getSymbol() << ")." << '\n';
+
+        fightMonster(player, m);        //passing m which is the Monster class
+    }
+    return 0;
+}
+
