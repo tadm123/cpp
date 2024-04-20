@@ -115,14 +115,14 @@ private:
     static_assert(std::size(monsterData) == max_types);
 
 public:
-    Monster(Type type)              //Ex: you pass "orc" , which is an enum, remember enums gets converted to integer, here to 1
-        :Creature{ monsterData[type] }      //Crea ture{ monsterData[orc] } -> Creature{ monsterData[1] } which gets you element 1 of that C-style array. And element 1 selects the Creature with all these variables
+    Monster(Type type)              //Ex: you pass "orc" enum type, remember enums gets converted to integer, here to 1
+        :Creature{ monsterData[type] }      //Creature{ monsterData[orc] } -> Creature{ monsterData[1] } which gets you element 1 of that C-style array. And element 1 selects the Creature with all these variables
     {
     }
 
     static Monster getRandomMonster()
     {
-        int rand_num{ Random::get(0, max_types - 1) };     //a random number between 0 and 2 (i.e 1)
+        int rand_num{ Random::get(0, max_types - 1) };     //generates a random number between 0 and 2 (i.e 1)
 
         Monster myMonsterType{static_cast<Type>(rand_num) };  
 
@@ -133,10 +133,10 @@ public:
 
 void fightMonster(Player &p, Monster& m);    
 
-//Here the monster attacks the player
+// The monster attacks the player
 void attackPlayer(Player &p, Monster &m)
 {
-    //here the monster "m" attacks the player and reduces the health on the player
+    // the monster "m" attacks the player and reduces the health of the player
     std::cout << "The " << m.getName() << " hit you for " << m.getDamage() << " damage.\n";
     p.reduceHealth( m.getDamage() );
 
@@ -148,7 +148,7 @@ void attackPlayer(Player &p, Monster &m)
 
     }
 
-    else            //if you're not dead. Then ask whether you want to run or flight again.
+    else            //if you're not dead. Then ask whether you want to run or fight again.
     {
         std::cout << "You're health is now at: " << p.getHealth() << "hp.\n";
         fightMonster(p, m);
