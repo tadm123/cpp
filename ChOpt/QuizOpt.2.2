@@ -11,7 +11,7 @@ Implement a function that does a left rotate on a std::bitset<4>. For this one, 
 std::bitset<4> rotl(std::bitset<4> bits)
 {
     //test whether LSB 0 is (1). If it is then set() last bit
-    if ( bits.test(3) )     // if bitst.test(0) == 1, return e
+    if ( bits.test(3) )     // if bitst.test(0) == 1
     {
         bits <<= 1;
         bits.set(0);
