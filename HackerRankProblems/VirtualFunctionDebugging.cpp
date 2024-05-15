@@ -25,7 +25,7 @@ public:
     HotelApartment(int bedrooms, int bathrooms) 
     : HotelRoom(bedrooms, bathrooms) {}
 
-    int get_price() {
+    int get_price() {       //This function is never used because the parent get_price() will always have prioritization. To fix this, convert HotelRoom::get_price() into a virtual function.
         return HotelRoom::get_price() + 100;
     }
 };
