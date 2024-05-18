@@ -32,5 +32,25 @@ int main()
         std::cout << arr[i] << " ";
     }
 
+    */
+    // using iterators
+    for (auto it {arr.begin()}; it != arr.end(); ++it)
+    {
+        std::cin >> *it;
+    }
+
+    for (auto it {std::end(arr) - 1}; it != (arr.begin() -1); --it )
+    {
+        std::cout << *it << " ";
+    }
+
+    //using reverse iterators to print
+    std::cout << "\n";
+    for (auto it {arr.rbegin()}; it != arr.rend(); ++it)
+    {
+        std::cout << *it << " ";
+    }
+    /*
+        
     return 0;
 }
