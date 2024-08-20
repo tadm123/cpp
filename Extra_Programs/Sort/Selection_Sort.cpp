@@ -1,9 +1,15 @@
 /* 
-Selection is one of the easiest sorthing algorithims, it performs the following steps to sort an array from smallest to largest:
+Selection sort:
+
+One of the easiest sorthing algorithims, it performs the following steps to sort an array from smallest to largest:
 
 1. Starting at array index 0, search the entire array to find the smallest value
 2. Swap the smallest value found in the array with the value at index 0
 3. Repeat steps 1 & 2 starting from the next index
+
+
+Time complexity: Best: O(n^2), Worse: O(n^2)
+Space comlexity: O(1)
 */
 
 #include <iostream>
