@@ -5,13 +5,9 @@ It's a recursive sorting method. Works by by selecting a random pivot in an arra
 of the pivot and the larger numbers to the right of the pivot. 
 Do this recursively for sub-arrays.
 
-Time complexity:
-Best: O(n)
-Worst: O(n^2)	
+Time complexity: Best: O(n log n), Worse: O(n^2)
+Space comlexity: Best: O(log n)), Worst: O(n)
 
-Space:
-Best: O(log n)
-Worst: O(n)
 */
 
 
