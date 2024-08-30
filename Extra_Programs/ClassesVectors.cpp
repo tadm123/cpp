@@ -63,7 +63,7 @@ void printStudents()
     {
         std::cout << a.getName() << " " << a.getAge() << " " << a.getTag() << '\n';
     }
-
+    
 }
 
 void getStudentbyName()
@@ -84,6 +84,21 @@ void getStudentbyName()
 
     }
     std::cout << "Name not found\n";
+
+/* 
+Or you can search by using std::find_if and lambda function:
+   auto it{ std::find_if(my_vector.begin(), my_vector.end(),
+                                                          [&name](const Student &a)
+                                                          {
+                                                              return a.getName() == name;
+                                                          }
+    )};
+
+    if (it != my_vector.end())
+        std::cout << it->getName() << " " << it->getAge() << " " << it->getTag() << '\n';
+    else
+        std::cout << "Name not found\n";
+*/
 }
 
 
