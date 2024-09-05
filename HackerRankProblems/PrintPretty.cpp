@@ -21,8 +21,6 @@ int main() {
 
         //B
         std::cout << std::dec << std::right << std::showpos << std::setw(15) << std::setfill('_') << std::fixed << std::setprecision(2);
-
-        std::cout << std::right << std::fixed;
         std::cout << B << '\n'; // we're still in hex
 
 
