@@ -21,6 +21,27 @@ public:
     //friend function overload operator+
     friend Matrix operator+(Matrix &x, Matrix &y);
 
+/*
+//Or if you want to do it by member function using the "this" keyword
+    Matrix operator+(Matrix &y)
+    {
+        int res;
+        std::vector<int> myVect{};
+        Matrix result;                               
+        for (int i{0}; i < this->a.size(); i++)
+        {
+            myVect.clear();
+            for (int j{0}; j < this->a[0].size(); j++)    
+            {
+                res = this->a[i][j] + y.a[i][j];
+                myVect.push_back(res);
+            }
+            result.a.push_back(myVect);
+        }
+        return result;
+    }
+*/
+
 };
 
 Matrix operator+(Matrix &x, Matrix &y)
