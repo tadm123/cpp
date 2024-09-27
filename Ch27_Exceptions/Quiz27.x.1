@@ -1,0 +1,48 @@
+/*
+Write a Fraction class that has a constructor that takes a numerator and a denominator. 
+If the user passes in a denominator of 0, throw an exception of type std::runtime_error (included in the stdexcept header). 
+In your main program, ask the user to enter two integers. If the Fraction is valid, print the fraction. 
+If the Fraction is invalid, catch a std::exception, and tell the user that they entered an invalid fraction.
+*/
+
+
+#include <iostream>
+#include <stdexcept>
+
+
+class Fraction
+{
+private:
+    int m_num{};
+    int m_den{};
+
+public:
+    Fraction(int num, int den)
+    :m_num(num),m_den(den)
+    {
+        if (den == 0)
+            throw std::runtime_error("Invalid denominator");
+    }
+};
+
+int main()
+{
+    std::cout << "Enter the numerator: ";
+    int num;
+    std::cin >> num;
+
+    std::cout << "Enter the denominator: ";
+    int den;
+    std::cin >> den;
+
+    try
+    {
+        Fraction f(num,den);
+    }
+    catch (const std::runtime_error &exemption)
+    {
+        std::cerr << exemption.what();
+    }
+
+    return 0;
+}
