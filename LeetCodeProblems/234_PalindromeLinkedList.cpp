@@ -34,7 +34,7 @@ public:
 
     while (slow != nullptr)
     {
-        ListNode* temp = slow->next;
+        ListNode* temp = slow->next;    //holding address of slow->next
         slow->next = prev;
         prev = slow;        //prev is one behind slow, so it'll stop when its at last node, or when slow is at null
         slow = temp;        //next node
