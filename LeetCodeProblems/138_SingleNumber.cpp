@@ -8,10 +8,10 @@ class Solution {
 public:
     int singleNumber(std::vector<int>& nums) 
     {
-        int result{0};                  //n^0 = n
-        for (auto const& digit: nums)
+        int result{0};                  
+        for (auto const& num: nums)
         {
-            result = digit^result;      //XOR
+            result = num^result;      //XOR
         }
         return result;
     }
