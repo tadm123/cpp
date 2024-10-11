@@ -11,7 +11,7 @@ public:
         int result{0};                  //n^0 = n
         for (auto const& digit: nums)
         {
-            result = digit^result;
+            result = digit^result;      //XOR
         }
         return result;
     }
