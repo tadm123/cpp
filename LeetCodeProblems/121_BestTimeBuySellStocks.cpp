@@ -29,7 +29,7 @@ public:
             else //if it's not profitable
                 l = r;          //shift left pointer all the way to the right
             
-            r += 1;     //iterate to next element
+            r++;     //iterate to next element
         }
         return maxProfit;
 
