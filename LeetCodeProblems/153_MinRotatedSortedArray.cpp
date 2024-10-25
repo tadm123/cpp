@@ -5,6 +5,7 @@ You must write an algorithm that rns in O(log n) time.
 */
 
 
+/* Using Binary Search. Time complexity: O(logn), Space complexity: O(1)
 class Solution {
 public:
     int findMin(vector<int>& nums) 
